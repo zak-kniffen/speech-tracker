@@ -36,17 +36,18 @@
         <div class="row">
             <th:block th:each="word : ${stuff}">
                 <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word}" style="text-align:center"></h2>
-                    <img src="https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60" alt="">
+                    <h2 th:text="${word.word}" style="text-align:center"></h2>
+                    <img th:src="${word.image}">
                     <div class="custom-control custom-radio custom-control-inline">
 
 
+
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="correct" th:name="${word}" class="custom-control-input" value="yes">
+                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
                             <label class="custom-control-label" for="correct">Correct</label>
                         </div>
                         <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="incorrect" th:name="${word}" class="custom-control-input" value="yes">
+                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
                             <label class="custom-control-label" for="incorrect">Incorrect</label>
                         </div>
 
@@ -55,7 +56,6 @@
             </th:block>
         </div>
     </div>
-
 
 
     <input type="submit" value="Add Employer" />

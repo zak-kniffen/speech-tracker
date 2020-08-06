@@ -1,16 +1,33 @@
 package com.babyspeak.speechtracker.models;
+import javax.persistence.Entity;
 
+@Entity
 public class hWordsInitial extends AbstractEntity{
 
-    private String[] wordList = {"ham", "hand", "hat", "heart", "hill", "hook", "horse", "house", "hair", "head"};
+    private String word;
 
-    public hWordsInitial(String[] wordList) {
-        this.wordList = wordList;
-    }
+    private String image;
 
-
-    public String[] getWordList() {
-        return wordList;
-    }
     public hWordsInitial(){};
+
+    public hWordsInitial(String word, String image) {
+        this.word = word;
+        this.image = image;
+    }
+
+    public String getWord() {
+        return word;
+    }
+
+    public void setWord(String word) {
+        this.word = word;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }
