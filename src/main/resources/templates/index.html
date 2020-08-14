@@ -42,11 +42,10 @@
 
 
 
-                        <div class="custom-control custom-radio custom-control-inline">
+                        <div class="custom-control custom-radio custom-control-inline radioDiv">
                             <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
                             <label class="custom-control-label" for="correct">Correct</label>
-                        </div>
-                        <div class="custom-control custom-radio custom-control-inline">
+
                             <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
                             <label class="custom-control-label" for="incorrect">Incorrect</label>
                         </div>
@@ -58,7 +57,9 @@
     </div>
 
 
-    <input type="submit" value="Add Employer" />
+    <input type="submit" class="btn btn-primary submit" value="Click To See Results" />
+
 </form>
+
 </body>
 </html>

@@ -88,6 +88,8 @@ import java.util.Optional;
                 totalYesAnswer ++;
             }
         }
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
+
         model.addAttribute("zak", "Total correct: " + totalYesAnswer);
         model.addAttribute("sam", "Total attempted: " + totalAnswers);
         model.addAttribute("bob", "Percent Correct = " + Math.round((totalYesAnswer/totalAnswers) * 100) + "%");

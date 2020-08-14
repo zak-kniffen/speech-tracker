@@ -3,7 +3,7 @@
 <head th:replace="fragments :: head">
 </head>
 <body style="top:100px">
-
+<div id="rect-demo"></div>
 <div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -34,11 +34,29 @@
 <br>
 <br>
 <br>
+<div id="d3Box"></div>
+<!--<div th:each="datum : ${totalData}">
+    <h1 th:text="${datum.word}"></h1>
+</div>-->
+
 <h1 th:text="${zak}"></h1>
 <h1 th:text="${sam}"></h1>
 <h1 th:text="${bob}"></h1>
+<script>
+    let myArray = [];
+</script>
+<th:block th:each="entry: ${totalData}">
+    <script th:inline="javascript">
+
+
+        myArray.push(/*[[${entry.getCorrect()}]]*/);
 
 
 
+    </script>
+</th:block>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script type="text/javascript" th:src="@{/js/results.js}"></script>
 </body>
 </html>
