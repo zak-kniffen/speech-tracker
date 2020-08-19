@@ -30,15 +30,15 @@ public abstract class AbstractEntity {
     public AbstractEntity(int id, @NotBlank @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters") String name, int year, int month, int day, String correct) {
         this.id = id;
         this.name = name;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+//        this.year = year;
+//        this.month = month;
+//        this.day = day;
         this.correct = correct;
     }
 
-    private int year; //= date.getYear();
-    private int month; // = date.getMonthValue();
-    private int day; //= date.getDayOfMonth();
+//    private int year; //= date.getYear();
+//    private int month; // = date.getMonthValue();
+//    private int day; //= date.getDayOfMonth();
 
 
     private String correct;
@@ -51,29 +51,29 @@ public abstract class AbstractEntity {
         this.correct = correct;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
+//    public int getYear() {
+//        return year;
+//    }
+//
+//    public void setYear(int year) {
+//        this.year = year;
+//    }
+//
+//    public int getMonth() {
+//        return month;
+//    }
+//
+//    public void setMonth(int month) {
+//        this.month = month;
+//    }
+//
+//    public int getDay() {
+//        return day;
+//    }
+//
+//    public void setDay(int day) {
+//        this.day = day;
+//    }
 
     public int getId() {
         return id;

@@ -35,6 +35,30 @@ import java.util.Optional;
     private FwordsFinalRepository fwordsFinalRepository;
 
     @Autowired
+    private HwordsInitialRepository hwordsInitialRepository;
+
+    @Autowired
+    private MwordsInitialRepository mwordsInitialRepository;
+
+    @Autowired
+    private MwordsFinalRepository mwordsFinalRepository;
+
+    @Autowired
+    private NwordsInitialRepository nwordsInitialRepository;
+
+    @Autowired
+    private NwordsFinalRepository nwordsFinalRepository;
+
+    @Autowired
+    private PwordsInitialRepository pwordsInitialRepository;
+
+    @Autowired
+    private PwordsFinalRepository pwordsFinalRepository;
+
+    @Autowired
+    private WwordsInitialRepository wwordsInitialRepository;
+
+    @Autowired
     private SnapshotWordProgressRepository snapshotWordProgressRepository;
 
 
@@ -45,10 +69,19 @@ import java.util.Optional;
     @RequestMapping("/")
     public String index(Model model) {
 
-        model.addAttribute("stuff", bwordsInitialRepository.findAll());
-        model.addAttribute("stuffy", bwordsFinalRepository.findAll());
-        model.addAttribute("stuffy2", fwordsInitialRepository.findAll());
-        model.addAttribute("stuffy3", fwordsFinalRepository.findAll());
+
+        model.addAttribute("bStart", bwordsInitialRepository.findAll());
+        model.addAttribute("bEnd", bwordsFinalRepository.findAll());
+        model.addAttribute("fStart", fwordsInitialRepository.findAll());
+        model.addAttribute("fEnd", fwordsFinalRepository.findAll());
+        model.addAttribute("hStart", hwordsInitialRepository.findAll());
+        model.addAttribute("mStart", mwordsInitialRepository.findAll());
+        model.addAttribute("mEnd", mwordsFinalRepository.findAll());
+        model.addAttribute("nStart", nwordsInitialRepository.findAll());
+        model.addAttribute("nEnd", nwordsFinalRepository.findAll());
+        model.addAttribute("pStart", pwordsInitialRepository.findAll());
+        model.addAttribute("pEnd", pwordsFinalRepository.findAll());
+        model.addAttribute("wStart", wwordsInitialRepository.findAll());
         model.addAttribute(new TrackerList());
 
         return "index";
@@ -61,10 +94,18 @@ import java.util.Optional;
 
 
         if (errors.hasErrors()) {
-//            model.addAttribute("stuff", bwordsInitialRepository.findAll());
-//            model.addAttribute("stuffy", bwordsFinalRepository.findAll());
-//            model.addAttribute("stuffy2", fwordsInitialRepository.findAll());
-//            model.addAttribute("stuffy3", fwordsFinalRepository.findAll());
+//            model.addAttribute("bStart", bwordsInitialRepository.findAll());
+//            model.addAttribute("bEnd", bwordsFinalRepository.findAll());
+//            model.addAttribute("fStart", fwordsInitialRepository.findAll());
+//            model.addAttribute("fEnd", fwordsFinalRepository.findAll());
+//            model.addAttribute("hStart", hwordsInitialRepository.findAll());
+//            model.addAttribute("mStart", mwordsInitialRepository.findAll());
+//            model.addAttribute("mEnd", mwordsFinalRepository.findAll());
+//            model.addAttribute("nStart", nwordsInitialRepository.findAll());
+//            model.addAttribute("nEnd", nwordsFinalRepository.findAll());
+//            model.addAttribute("pStart", pwordsInitialRepository.findAll());
+//            model.addAttribute("pEnd", pwordsFinalRepository.findAll());
+//            model.addAttribute("wStart", wwordsInitialRepository.findAll());
             return "submit";
         }
 

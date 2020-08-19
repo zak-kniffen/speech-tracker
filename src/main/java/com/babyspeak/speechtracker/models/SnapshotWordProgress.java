@@ -41,32 +41,32 @@ public class SnapshotWordProgress extends AbstractEntity{
         this.image = image;
     }
 
-    @Override
+    //@Override
     public int getYear() {
         return year;
     }
 
-    @Override
+    //@Override
     public void setYear(int year) {
         this.year = year;
     }
 
-    @Override
+    //@Override
     public int getMonth() {
         return month;
     }
 
-    @Override
+    //@Override
     public void setMonth(int month) {
         this.month = month;
     }
 
-    @Override
+    //@Override
     public int getDay() {
         return day;
     }
 
-    @Override
+    //@Override
     public void setDay(int day) {
         this.day = day;
     }
