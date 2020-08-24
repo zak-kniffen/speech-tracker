@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
@@ -87,7 +84,28 @@ import java.util.Optional;
         return "index";
     }
 
-    @PostMapping("/")
+    @RequestMapping("results/index")
+    public String resultsIndex(Model model) {
+
+
+        model.addAttribute("bStart", bwordsInitialRepository.findAll());
+        model.addAttribute("bEnd", bwordsFinalRepository.findAll());
+        model.addAttribute("fStart", fwordsInitialRepository.findAll());
+        model.addAttribute("fEnd", fwordsFinalRepository.findAll());
+        model.addAttribute("hStart", hwordsInitialRepository.findAll());
+        model.addAttribute("mStart", mwordsInitialRepository.findAll());
+        model.addAttribute("mEnd", mwordsFinalRepository.findAll());
+        model.addAttribute("nStart", nwordsInitialRepository.findAll());
+        model.addAttribute("nEnd", nwordsFinalRepository.findAll());
+        model.addAttribute("pStart", pwordsInitialRepository.findAll());
+        model.addAttribute("pEnd", pwordsFinalRepository.findAll());
+        model.addAttribute("wStart", wwordsInitialRepository.findAll());
+        model.addAttribute(new TrackerList());
+
+        return "/results/index";
+    }
+
+    @PostMapping("/results/index")
     public String processAddTrackerForm(@ModelAttribute @Valid TrackerList newTracker,
                                         Errors errors, Model model, @RequestParam Map<String,String> allQueryParams) {
 
@@ -134,7 +152,49 @@ import java.util.Optional;
         model.addAttribute("zak", "Total correct: " + totalYesAnswer);
         model.addAttribute("sam", "Total attempted: " + totalAnswers);
         model.addAttribute("bob", "Percent Correct = " + Math.round((totalYesAnswer/totalAnswers) * 100) + "%");
-        return "submit";
+        return "results/submit";
+    }
+
+    @GetMapping("/test/{letter}")
+    public String handler(Model model, @PathVariable(name = "letter") String letter) {
+        if (letter.equals("starts_with_b")){
+            model.addAttribute("wordList", bwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("ends_with_b")){
+            model.addAttribute("wordList", bwordsFinalRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_f")){
+            model.addAttribute("wordList", fwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("ends_with_f")){
+            model.addAttribute("wordList", fwordsFinalRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_h")){
+            model.addAttribute("wordList", hwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_m")){
+            model.addAttribute("wordList", mwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("ends_with_m")){
+            model.addAttribute("wordList", mwordsFinalRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_n")){
+            model.addAttribute("wordList", nwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("ends_with_n")){
+            model.addAttribute("wordList", nwordsFinalRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_p")){
+            model.addAttribute("wordList", pwordsInitialRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("ends_with_p")){
+            model.addAttribute("wordList", pwordsFinalRepository.findAll());
+            return "test/byLetter";
+        } else if (letter.equals("starts_with_w")){
+            model.addAttribute("wordList", wwordsInitialRepository.findAll());
+            return "test/byLetter";
+        }
+        return "results/index";
     }
 
 

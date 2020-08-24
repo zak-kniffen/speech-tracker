@@ -22,3 +22,11 @@ width: 90%;
 background-color: green;
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+  background-color: #080808;
+  color: gray;
+}
+
+
+
