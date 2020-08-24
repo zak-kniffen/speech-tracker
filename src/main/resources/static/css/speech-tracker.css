@@ -24,7 +24,7 @@ background-color: green;
 
 .dropdown:hover .dropdown-menu {
   display: block;
-  background-color: #080808;
+  background-color: #CDCDCD;
   color: gray;
 }
 

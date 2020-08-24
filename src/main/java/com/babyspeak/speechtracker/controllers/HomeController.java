@@ -105,6 +105,14 @@ import java.util.Optional;
         return "/results/index";
     }
 
+    @RequestMapping("/results/submit")
+    public String processAddTrackerForm(Model model) {
+
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
+
+        return "results/submit";
+    }
+
     @PostMapping("/results/index")
     public String processAddTrackerForm(@ModelAttribute @Valid TrackerList newTracker,
                                         Errors errors, Model model, @RequestParam Map<String,String> allQueryParams) {
