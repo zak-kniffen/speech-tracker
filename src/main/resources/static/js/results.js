@@ -36,14 +36,17 @@
 
     const dataset = [];
     const dateSet = [];
+
     for (object of resultsObjectsArray){
-        dataset.push(Math.round(object.totalCorrect/(object.totalCorrect + object.totalIncorrect)*100));
-        dateSet.push(object.date);
-
+        let obj = {};
+        obj.percent = (Math.round(object.totalCorrect/(object.totalCorrect + object.totalIncorrect)*100));
+        obj.date = object.date;
+        dataset.push(obj);
     }
+    console.log(resultsObjectsArray);
 
-    const w = 300;
-    const h = 300;
+    const w = 400;
+    const h = 600;
 
     const svg = d3.select("body")
                   .append("svg")
@@ -55,17 +58,19 @@
        .data(dataset)
        .enter()
        .append("rect")
-       .attr("x", (d, i) => i * w/(dataset.length))
-       .attr("y", (d, i) => h - 3 * d)
-       .attr("width", w/(dataset.length + 1))
-       .attr("height", (d, i) => 3 * d)
-       .attr("fill", "navy");
+       .attr("y", (d, i) => i * h/(dataset.length))
+       .attr("x", 0)
+       .attr("height", h/(dataset.length + 1))
+       .attr("width", (d, i) => 2.5 * d.percent)
+       .attr("fill", "black");
 
     svg.selectAll("text")
-       .data(dateSet)
+       .data(dataset)
        .enter()
        .append("text")
-       .text((d) => d)
-       .attr("x", (d, i) => i * 30)
-       .attr("y", (d, i) => h - (3 * d) - 3);
+       .text((d) => d.date + ": " + d.percent + "%")
+       .attr("height", h/(dataset.length + 1))
+       .attr("y", (d, i) => (i * h/(dataset.length)) + (h/dataset.length + 1)/2)
+       .attr("x", (d, i) => 2.5 * d.percent + 3);
+
 

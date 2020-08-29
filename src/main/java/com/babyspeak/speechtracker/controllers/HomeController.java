@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -205,6 +206,42 @@ import java.util.Optional;
         return "results/index";
     }
 
+    @GetMapping("/test/resultByLetter/{letter}")
+    public String handlerResults(Model model, @PathVariable(name = "letter") String letter) {
+        model.addAttribute("letter", letter);
+        return "/test/resultByLetter";
+    }
+
+    @PostMapping("/test/{letter}")
+    public String processByLetter(@ModelAttribute @Valid TrackerList newTracker,
+                                  Errors errors, Model model, @PathVariable("letter") String letter, @RequestParam Map<String,String> allQueryParams) {
+
+        int year = LocalDate.now().getYear();
+        int month = LocalDate.now().getMonthValue();
+        int day = LocalDate.now().getDayOfMonth();
+
+        double totalAnswers = 0;
+        double totalYesAnswer = 0;
+
+        for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
+            SnapshotWordProgress snap = new SnapshotWordProgress();
+            snap.setCorrect(entry.getValue());
+            snap.setWord(entry.getKey());
+            snap.setYear(year);
+            snap.setMonth(month);
+            snap.setDay(day);
+            snapshotWordProgressRepository.save(snap);
+            totalAnswers ++;
+            if (entry.getValue().equals("yes")){
+                totalYesAnswer ++;
+            }
+        }
+        model.addAttribute("letter", letter);
+        model.addAttribute("zak", "Total correct: " + totalYesAnswer);
+        model.addAttribute("sam", "Total attempted: " + totalAnswers);
+        model.addAttribute("bob", "Percent Correct = " + Math.round((totalYesAnswer/totalAnswers) * 100) + "%");
+        return "test/resultByLetter";
+    }
 
 
 

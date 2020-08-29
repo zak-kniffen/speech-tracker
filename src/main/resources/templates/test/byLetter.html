@@ -4,74 +4,20 @@
 </head>
 <body>
 
-<div th:fragment="page-header" class="bg primary navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a th:href="@{/}" class="navbar-brand">Home Page</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Total Progress</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Progress By Letter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/results/index">Try All Letters</a>
-                </li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Try By Letter</a>
-                    <ul id="products-menu" class="dropdown-menu clearfix" role="menu">
-                        <li class="letterDropdownItem"><a href="/test/starts_with_b">Starts With B</a></li>
-                        <li><a href="/test/ends_with_b">Ends With B</a></li>
-                        <li><a href="/test/starts_with_f">Starts With F</a></li>
-                        <li><a href="/test/ends_with_f">Ends With F</a></li>
-                        <li><a href="/test/starts_with_h">Starts With H</a></li>
-                        <li><a href="/test/starts_with_m">Starts With M</a></li>
-                        <li><a href="/test/ends_with_m">Ends With M</a></li>
-                        <li><a href="/test/starts_with_n">Starts With N</a></li>
-                        <li><a href="/test/ends_with_n">Ends With N</a></li>
-                        <li><a href="/test/starts_with_p">Starts With P</a></li>
-                        <li><a href="/test/ends_with_p">Ends With P</a></li>
-                        <li><a href="/test/starts_with_w">Starts With W</a></li>
-                    </ul>
-                </li>
+<div th:replace="fragments :: navbar"></div>
+<br>
+<br>
+<br>
+<br>
 
-            </ul>
-
-        </div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-<h1>Hello World</h1>
 
 <form method="post" style="max-width:600px;">
     <div class="container">
         <div class="row">
-            <th:block th:each="word : ${wordList}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
+            <div th:insert="fragments :: cards" th:each ="word : ${wordList}"></div>
          </div>
     </div>
+    <input type="submit" class="btn btn-primary submit" value="Click To See Results" />
 </form>
 
 </body>

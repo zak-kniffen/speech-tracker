@@ -1,288 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
-</head>
-<body>
-
-<div th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <a th:href="@{/}" class="navbar-brand">Home Page</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Total Progress</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">My Progress By Letter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/results/index">Try All Letters</a>
-                </li>
-                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Try By Letter</a>
-                    <ul id="products-menu" class="dropdown-menu clearfix" role="menu">
-                        <li class="letterDropdownItem"><a href="/test/starts_with_b">Starts With B</a></li>
-                        <li><a href="/test/ends_with_b">Ends With B</a></li>
-                        <li><a href="/test/starts_with_f">Starts With F</a></li>
-                        <li><a href="/test/ends_with_f">Ends With F</a></li>
-                        <li><a href="/test/starts_with_h">Starts With H</a></li>
-                        <li><a href="/test/starts_with_m">Starts With M</a></li>
-                        <li><a href="/test/ends_with_m">Ends With M</a></li>
-                        <li><a href="/test/starts_with_n">Starts With N</a></li>
-                        <li><a href="/test/ends_with_n">Ends With N</a></li>
-                        <li><a href="/test/starts_with_p">Starts With P</a></li>
-                        <li><a href="/test/ends_with_p">Ends With P</a></li>
-                        <li><a href="/test/starts_with_w">Starts With W</a></li>
-                    </ul>
-                </li>
-
-            </ul>
-
-        </div>
-    </div>
-</div>
+    <head th:replace="fragments :: head">
+    </head>
+    <body>
+        <div th:replace="fragments :: navbar"></div>
+        <br>
+        <br>
+        <br>
+        <br>
 
 
-<form method="post" style="max-width:600px;">
-    <div class="container">
-        <div class="row">
-            <th:block th:each="word : ${bStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
+        <form method="post" style="max-width:600px;">
+            <div class="container">
+                <div class="row">
+                    <div th:insert="fragments :: cards" th:each ="word : ${bStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${bEnd}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${fStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${fEnd}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${hStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${mStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${mEnd}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${nStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${nEnd}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${pStart}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${pEnd}"></div>
+                    <div th:insert="fragments :: cards" th:each ="word : ${wStart}"></div>
                 </div>
-            </th:block>
-            <th:block th:each="word : ${bEnd}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
+            </div>
+
+            <input type="submit" class="btn btn-primary submit" value="Click To See Results" />
+        </form>
 
 
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${fStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${fEnd}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${hStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${mStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${mEnd}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${nStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${nEnd}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${pStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${pEnd}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-            <th:block th:each="word : ${wStart}">
-                <div class="col-12 col-sm-6 col-md-4 3 col-lg-3">
-                    <h2 th:text="${word.word}" style="text-align:center"></h2>
-                    <img th:src="${word.image}">
-                    <div class="custom-control custom-radio custom-control-inline">
-
-
-
-                        <div class="custom-control custom-radio custom-control-inline radioDiv">
-                            <input type="radio" id="correct" th:name="${word.word}" class="custom-control-input" value="yes">
-                            <label class="custom-control-label" for="correct">Correct</label>
-
-                            <input type="radio" id="incorrect" th:name="${word.word}" class="custom-control-input" value="no">
-                            <label class="custom-control-label" for="incorrect">Incorrect</label>
-                        </div>
-
-                    </div>
-                </div>
-            </th:block>
-        </div>
-    </div>
-
-
-    <input type="submit" class="btn btn-primary submit" value="Click To See Results" />
-
-</form>
-
-
-</body>
+    </body>
 </html>
+
