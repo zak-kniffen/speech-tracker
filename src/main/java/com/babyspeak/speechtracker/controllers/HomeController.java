@@ -21,6 +21,9 @@ import java.util.Optional;
     public class HomeController {
 
     @Autowired
+    private AllWordsRepository allWordsRepository;
+
+    @Autowired
     private BwordsInitialRepository bwordsInitialRepository;
 
     @Autowired
@@ -67,19 +70,7 @@ import java.util.Optional;
     @RequestMapping("/")
     public String index(Model model) {
 
-
-        model.addAttribute("bStart", bwordsInitialRepository.findAll());
-        model.addAttribute("bEnd", bwordsFinalRepository.findAll());
-        model.addAttribute("fStart", fwordsInitialRepository.findAll());
-        model.addAttribute("fEnd", fwordsFinalRepository.findAll());
-        model.addAttribute("hStart", hwordsInitialRepository.findAll());
-        model.addAttribute("mStart", mwordsInitialRepository.findAll());
-        model.addAttribute("mEnd", mwordsFinalRepository.findAll());
-        model.addAttribute("nStart", nwordsInitialRepository.findAll());
-        model.addAttribute("nEnd", nwordsFinalRepository.findAll());
-        model.addAttribute("pStart", pwordsInitialRepository.findAll());
-        model.addAttribute("pEnd", pwordsFinalRepository.findAll());
-        model.addAttribute("wStart", wwordsInitialRepository.findAll());
+        model.addAttribute("allWords", allWordsRepository.findAll());
         model.addAttribute(new TrackerList());
 
         return "index";
@@ -88,19 +79,7 @@ import java.util.Optional;
     @RequestMapping("results/index")
     public String resultsIndex(Model model) {
 
-
-        model.addAttribute("bStart", bwordsInitialRepository.findAll());
-        model.addAttribute("bEnd", bwordsFinalRepository.findAll());
-        model.addAttribute("fStart", fwordsInitialRepository.findAll());
-        model.addAttribute("fEnd", fwordsFinalRepository.findAll());
-        model.addAttribute("hStart", hwordsInitialRepository.findAll());
-        model.addAttribute("mStart", mwordsInitialRepository.findAll());
-        model.addAttribute("mEnd", mwordsFinalRepository.findAll());
-        model.addAttribute("nStart", nwordsInitialRepository.findAll());
-        model.addAttribute("nEnd", nwordsFinalRepository.findAll());
-        model.addAttribute("pStart", pwordsInitialRepository.findAll());
-        model.addAttribute("pEnd", pwordsFinalRepository.findAll());
-        model.addAttribute("wStart", wwordsInitialRepository.findAll());
+        model.addAttribute("allWords", allWordsRepository.findAll());
         model.addAttribute(new TrackerList());
 
         return "/results/index";
@@ -110,7 +89,7 @@ import java.util.Optional;
     public String processAddTrackerForm(Model model) {
 
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
-
+        model.addAttribute("letter", "allWords");
         return "results/submit";
     }
 
@@ -121,18 +100,7 @@ import java.util.Optional;
 
 
         if (errors.hasErrors()) {
-//            model.addAttribute("bStart", bwordsInitialRepository.findAll());
-//            model.addAttribute("bEnd", bwordsFinalRepository.findAll());
-//            model.addAttribute("fStart", fwordsInitialRepository.findAll());
-//            model.addAttribute("fEnd", fwordsFinalRepository.findAll());
-//            model.addAttribute("hStart", hwordsInitialRepository.findAll());
-//            model.addAttribute("mStart", mwordsInitialRepository.findAll());
-//            model.addAttribute("mEnd", mwordsFinalRepository.findAll());
-//            model.addAttribute("nStart", nwordsInitialRepository.findAll());
-//            model.addAttribute("nEnd", nwordsFinalRepository.findAll());
-//            model.addAttribute("pStart", pwordsInitialRepository.findAll());
-//            model.addAttribute("pEnd", pwordsFinalRepository.findAll());
-//            model.addAttribute("wStart", wwordsInitialRepository.findAll());
+            model.addAttribute("allWords", allWordsRepository.findAll());
             return "submit";
         }
 
@@ -145,8 +113,12 @@ import java.util.Optional;
 
         for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
             SnapshotWordProgress snap = new SnapshotWordProgress();
+            Integer tempId = Integer.parseInt(entry.getKey());
             snap.setCorrect(entry.getValue());
-            snap.setWord(entry.getKey());
+            Optional<AllWords> tempWord = allWordsRepository.findById(tempId);
+            AllWords allword = tempWord.get();
+            snap.setWord(allword.getWord());
+            snap.setName(allword.getName());
             snap.setYear(year);
             snap.setMonth(month);
             snap.setDay(day);
@@ -156,8 +128,9 @@ import java.util.Optional;
                 totalYesAnswer ++;
             }
         }
+        model.addAttribute("letter", "allWords");
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
-
+        model.addAttribute("allData", allQueryParams);
         model.addAttribute("zak", "Total correct: " + totalYesAnswer);
         model.addAttribute("sam", "Total attempted: " + totalAnswers);
         model.addAttribute("bob", "Percent Correct = " + Math.round((totalYesAnswer/totalAnswers) * 100) + "%");
@@ -208,6 +181,7 @@ import java.util.Optional;
 
     @GetMapping("/test/resultByLetter/{letter}")
     public String handlerResults(Model model, @PathVariable(name = "letter") String letter) {
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("letter", letter);
         return "/test/resultByLetter";
     }
@@ -225,8 +199,12 @@ import java.util.Optional;
 
         for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
             SnapshotWordProgress snap = new SnapshotWordProgress();
+            Integer tempId = Integer.parseInt(entry.getKey());
             snap.setCorrect(entry.getValue());
-            snap.setWord(entry.getKey());
+            Optional<AllWords> tempWord = allWordsRepository.findById(tempId);
+            AllWords allword = tempWord.get();
+            snap.setWord(allword.getWord());
+            snap.setName(allword.getName());
             snap.setYear(year);
             snap.setMonth(month);
             snap.setDay(day);
@@ -236,6 +214,9 @@ import java.util.Optional;
                 totalYesAnswer ++;
             }
         }
+
+
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("letter", letter);
         model.addAttribute("zak", "Total correct: " + totalYesAnswer);
         model.addAttribute("sam", "Total attempted: " + totalAnswers);

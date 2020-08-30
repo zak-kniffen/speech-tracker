@@ -13,6 +13,7 @@
         <form method="post" style="max-width:600px;">
             <div class="container">
                 <div class="row">
+                    <div th:insert="fragments :: cards" th:each ="word : ${allWords}"></div>
                     <div th:insert="fragments :: cards" th:each ="word : ${bStart}"></div>
                     <div th:insert="fragments :: cards" th:each ="word : ${bEnd}"></div>
                     <div th:insert="fragments :: cards" th:each ="word : ${fStart}"></div>
