@@ -2,12 +2,16 @@ package com.babyspeak.speechtracker.controllers;
 
 import com.babyspeak.speechtracker.models.*;
 import com.babyspeak.speechtracker.models.data.*;
+import com.babyspeak.speechtracker.models.dto.RegisterFormDTO;
+import org.hibernate.Criteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
@@ -62,17 +66,24 @@ import java.util.Optional;
     @Autowired
     private SnapshotWordProgressRepository snapshotWordProgressRepository;
 
+    @Autowired
+    AuthenticationController authenticationController;
+
 
 //    private Words wordy = new Words();
 //
 //    private String[] stuff = wordy.getWordList();
 
+
+
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index(HttpServletRequest request, Model model, RegisterFormDTO registerFormDTO) {
 
         model.addAttribute("allWords", allWordsRepository.findAll());
         model.addAttribute(new TrackerList());
-
+//        HttpSession session = request.getSession();
+//        User user = authenticationController.getUserFromSession(session);
+//        System.out.println(user.getId());
         return "index";
     }
 
@@ -94,7 +105,7 @@ import java.util.Optional;
     }
 
     @PostMapping("/results/index")
-    public String processAddTrackerForm(@ModelAttribute @Valid TrackerList newTracker,
+    public String processAddTrackerForm(HttpServletRequest request, @ModelAttribute @Valid TrackerList newTracker,
                                         Errors errors, Model model, @RequestParam Map<String,String> allQueryParams) {
 
 
@@ -110,6 +121,10 @@ import java.util.Optional;
 
         double totalAnswers = 0;
         double totalYesAnswer = 0;
+
+        HttpSession session = request.getSession();
+        Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
+        User optionalUser = user.get();
 
         for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
             SnapshotWordProgress snap = new SnapshotWordProgress();
@@ -187,7 +202,7 @@ import java.util.Optional;
     }
 
     @PostMapping("/test/{letter}")
-    public String processByLetter(@ModelAttribute @Valid TrackerList newTracker,
+    public String processByLetter(HttpServletRequest request, @ModelAttribute @Valid TrackerList newTracker,
                                   Errors errors, Model model, @PathVariable("letter") String letter, @RequestParam Map<String,String> allQueryParams) {
 
         int year = LocalDate.now().getYear();
@@ -196,6 +211,11 @@ import java.util.Optional;
 
         double totalAnswers = 0;
         double totalYesAnswer = 0;
+
+        HttpSession session = request.getSession();
+        Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
+        User optionalUser = user.get();
+        //System.out.println(optionalUser.getId());
 
         for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
             SnapshotWordProgress snap = new SnapshotWordProgress();
@@ -208,6 +228,7 @@ import java.util.Optional;
             snap.setYear(year);
             snap.setMonth(month);
             snap.setDay(day);
+            snap.setUserid(optionalUser.getId());
             snapshotWordProgressRepository.save(snap);
             totalAnswers ++;
             if (entry.getValue().equals("yes")){

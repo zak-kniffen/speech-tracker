@@ -14,6 +14,8 @@ public class User extends AbstractEntity {
     @NotNull
     private String pwHash;
 
+
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public User() {}
@@ -22,6 +24,8 @@ public class User extends AbstractEntity {
         this.username = username;
         this.pwHash = encoder.encode(password);
     }
+
+
 
     public String getUsername() {
         return username;

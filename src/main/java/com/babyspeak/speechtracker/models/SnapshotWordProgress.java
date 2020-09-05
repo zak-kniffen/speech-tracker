@@ -1,8 +1,11 @@
 package com.babyspeak.speechtracker.models;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class SnapshotWordProgress extends AbstractEntity{
@@ -12,10 +15,12 @@ public class SnapshotWordProgress extends AbstractEntity{
     private int month; // = date.getMonthValue();
     private int day; //= date.getDayOfMonth();
     private String correct;
+    private Integer userid;
+
 
     public SnapshotWordProgress(){};
 
-    public SnapshotWordProgress(int id, @NotBlank @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters") String name, int year, int month, int day, String correct, String word, String image, int year1, int month1, int day1, String correct1) {
+    public SnapshotWordProgress(int id, @NotBlank @Size(min = 3, max = 100, message = "Name must be between 3 and 100 characters") String name, int year, int month, int day, String correct, String word, String image, int year1, int month1, int day1, Integer userid, String correct1) {
         super(id, name, year, month, day, correct);
         this.word = word;
         this.image = image;
@@ -23,6 +28,8 @@ public class SnapshotWordProgress extends AbstractEntity{
         this.month = month1;
         this.day = day1;
         this.correct = correct1;
+        this.userid = userid;
+
     }
 
     public String getWord() {
@@ -79,5 +86,13 @@ public class SnapshotWordProgress extends AbstractEntity{
     @Override
     public void setCorrect(String correct) {
         this.correct = correct;
+    }
+
+    public Integer getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 }
