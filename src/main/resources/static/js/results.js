@@ -1,5 +1,6 @@
     let letterTest = document.getElementById("testy").innerHTML;
     console.log(letterTest);
+    console.log(referenceNumber);
     let datesArray = [];
     let resultsObjectsArray = [];
     class ResultsObject {
@@ -13,57 +14,60 @@
     function passDataByLetter(arr,innerTest){
         if (innerTest == null){
             for (let entry of arr){
+                 if(entry.userid == referenceNumber)  {
+                    let totalDate = (entry.month) + "/" + (entry.day) + "/" + (entry.year);
 
-                let totalDate = (entry.month) + "/" + (entry.day) + "/" + (entry.year);
+                    if (!datesArray.includes(totalDate)){
+                        datesArray.push(totalDate);
+                        if (entry.correct == "yes"){
+                            resultsObjectsArray.push(new ResultsObject(totalDate, 1, 0, entry.name));
+                        } else {
+                            resultsObjectsArray.push(new ResultsObject(totalDate, 0, 1, entry.name));
+                        }
 
-                if (!datesArray.includes(totalDate)){
-                    datesArray.push(totalDate);
-                    if (entry.correct == "yes"){
-                        resultsObjectsArray.push(new ResultsObject(totalDate, 1, 0, entry.name));
                     } else {
-                        resultsObjectsArray.push(new ResultsObject(totalDate, 0, 1, entry.name));
-                    }
-
-                } else {
-                    for (let object of resultsObjectsArray){
-                        if (object.date == totalDate){
-                            if (entry.correct == "yes"){
-                                object.totalCorrect ++;
-                            } else {
-                                object.totalIncorrect ++;
+                        for (let object of resultsObjectsArray){
+                            if (object.date == totalDate){
+                                if (entry.correct == "yes"){
+                                    object.totalCorrect ++;
+                                } else {
+                                    object.totalIncorrect ++;
+                                }
                             }
                         }
-                    }
 
-                }
-            }
+                    }
+                 }
+             }
          }
                  else {
                      for (let entry of arr){
-                           if (innerTest == entry.name){
-                             let totalDate = (entry.month) + "/" + (entry.day) + "/" + (entry.year);
+                         if(entry.userid == referenceNumber) {
+                               if (innerTest == entry.name){
+                                 let totalDate = (entry.month) + "/" + (entry.day) + "/" + (entry.year);
 
-                             if (!datesArray.includes(totalDate)){
-                                 datesArray.push(totalDate);
-                                 if (entry.correct == "yes"){
-                                     resultsObjectsArray.push(new ResultsObject(totalDate, 1, 0, entry.name));
+                                 if (!datesArray.includes(totalDate)){
+                                     datesArray.push(totalDate);
+                                     if (entry.correct == "yes"){
+                                         resultsObjectsArray.push(new ResultsObject(totalDate, 1, 0, entry.name));
+                                     } else {
+                                         resultsObjectsArray.push(new ResultsObject(totalDate, 0, 1, entry.name));
+                                     }
+
                                  } else {
-                                     resultsObjectsArray.push(new ResultsObject(totalDate, 0, 1, entry.name));
-                                 }
-
-                             } else {
-                                 for (let object of resultsObjectsArray){
-                                     if (object.date == totalDate){
-                                         if (entry.correct == "yes"){
-                                             object.totalCorrect ++;
-                                         } else {
-                                             object.totalIncorrect ++;
+                                     for (let object of resultsObjectsArray){
+                                         if (object.date == totalDate){
+                                             if (entry.correct == "yes"){
+                                                 object.totalCorrect ++;
+                                             } else {
+                                                 object.totalIncorrect ++;
+                                             }
                                          }
                                      }
-                                 }
 
-                             }
-                        }
+                                 }
+                            }
+                         }
                      }
                   }
     }

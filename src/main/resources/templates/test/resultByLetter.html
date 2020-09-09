@@ -23,7 +23,11 @@
     let myArray = [];
     let newLetter;
 </script>
-
+<th:block th:object="${referenceNumber}">
+    <script th:inline="javascript">
+        let referenceNumber = /*[[${referenceNumber}]]*/;
+    </script>
+</th:block>
 
 <th:block th:each="entry: ${totalData}">
     <script th:inline="javascript">

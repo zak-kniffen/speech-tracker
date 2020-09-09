@@ -126,6 +126,7 @@ import java.util.Optional;
         Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
         User optionalUser = user.get();
 
+
         for (Map.Entry<String,String> entry : allQueryParams.entrySet()){
             SnapshotWordProgress snap = new SnapshotWordProgress();
             Integer tempId = Integer.parseInt(entry.getKey());
@@ -137,12 +138,15 @@ import java.util.Optional;
             snap.setYear(year);
             snap.setMonth(month);
             snap.setDay(day);
+            snap.setUserid(optionalUser.getId());
             snapshotWordProgressRepository.save(snap);
             totalAnswers ++;
             if (entry.getValue().equals("yes")){
                 totalYesAnswer ++;
             }
         }
+
+        model.addAttribute("referenceNumber",optionalUser.getId());
         model.addAttribute("letter", "allWords");
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("allData", allQueryParams);
@@ -236,7 +240,7 @@ import java.util.Optional;
             }
         }
 
-
+        model.addAttribute("referenceNumber",optionalUser.getId());
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("letter", letter);
         model.addAttribute("zak", "Total correct: " + totalYesAnswer);
