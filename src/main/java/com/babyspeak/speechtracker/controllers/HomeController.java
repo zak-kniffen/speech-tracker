@@ -79,7 +79,10 @@ import java.util.Optional;
     @RequestMapping("/")
     public String index(HttpServletRequest request, Model model, RegisterFormDTO registerFormDTO) {
 
+
+
         model.addAttribute("allWords", allWordsRepository.findAll());
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute(new TrackerList());
 //        HttpSession session = request.getSession();
 //        User user = authenticationController.getUserFromSession(session);
@@ -97,10 +100,18 @@ import java.util.Optional;
     }
 
     @RequestMapping("/results/submit")
-    public String processAddTrackerForm(Model model) {
+    public String processAddTrackerForm(HttpServletRequest request, Model model) {
 
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("letter", "allWords");
+
+        HttpSession session = request.getSession();
+        Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
+        User optionalUser = user.get();
+
+        model.addAttribute("referenceNumber",optionalUser.getId());
+        model.addAttribute("letter", "allWords");
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         return "results/submit";
     }
 
@@ -199,9 +210,17 @@ import java.util.Optional;
     }
 
     @GetMapping("/test/resultByLetter/{letter}")
-    public String handlerResults(Model model, @PathVariable(name = "letter") String letter) {
+    public String handlerResults(HttpServletRequest request, Model model, @PathVariable(name = "letter") String letter) {
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute("letter", letter);
+
+        HttpSession session = request.getSession();
+        Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
+        User optionalUser = user.get();
+
+        model.addAttribute("referenceNumber",optionalUser.getId());
+
+        model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         return "/test/resultByLetter";
     }
 
