@@ -96,7 +96,7 @@ import java.util.Optional;
         model.addAttribute("allWords", allWordsRepository.findAll());
         model.addAttribute(new TrackerList());
 
-        return "/results/index";
+        return "results/index";
     }
 
     @RequestMapping("/results/submit")
@@ -221,7 +221,7 @@ import java.util.Optional;
         model.addAttribute("referenceNumber",optionalUser.getId());
 
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
-        return "/test/resultByLetter";
+        return "test/resultByLetter";
     }
 
     @PostMapping("/test/{letter}")
