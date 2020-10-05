@@ -49,7 +49,7 @@ public class AuthenticationController {
     public String displayRegistrationForm(Model model) {
         model.addAttribute(new RegisterFormDTO());
         model.addAttribute("title", "Register");
-        return "/register";
+        return "register";
     }
 
     @PostMapping("/register")
