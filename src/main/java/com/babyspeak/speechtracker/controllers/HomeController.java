@@ -80,7 +80,11 @@ import java.util.Optional;
     public String index(HttpServletRequest request, Model model, RegisterFormDTO registerFormDTO) {
 
 
+        HttpSession session = request.getSession();
+        Optional<User> user = Optional.ofNullable(authenticationController.getUserFromSession(session));
+        User optionalUser = user.get();
 
+        model.addAttribute("referenceNumber",optionalUser.getId());
         model.addAttribute("allWords", allWordsRepository.findAll());
         model.addAttribute("totalData", snapshotWordProgressRepository.findAll());
         model.addAttribute(new TrackerList());
